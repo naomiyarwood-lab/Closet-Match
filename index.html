@@ -1,179 +1,624 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Closet Match</title>
+<title>Closet Match</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
 
-    body {
-      margin: 0;
-      background: #f7f4ee;
-      color: #171717;
-      font-family: Arial, Helvetica, sans-serif;
-    }
+* {
+  box-sizing: border-box;
+}
 
-    header {
-      padding: 24px 20px;
-      border-bottom: 1px solid #ddd8cf;
-      background: #fffdf9;
-    }
+body {
+  margin: 0;
+  background: #f7f4ee;
+  color: #171717;
+  font-family: Arial, Helvetica, sans-serif;
+}
 
-    .logo {
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: 3px;
-    }
+header {
+  height: 70px;
+  background: #fffdf9;
+  border-bottom: 1px solid #ddd8cf;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 22px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
 
-    .logo span {
-      font-weight: 400;
-    }
+.logo {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
 
-    main {
-      padding: 50px 24px;
-      max-width: 1100px;
-      margin: auto;
-    }
+.logo span {
+  font-weight: 400;
+}
 
-    .eyebrow {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      margin-bottom: 18px;
-    }
+nav {
+  display: flex;
+  gap: 5px;
+}
 
-    h1 {
-      font-size: clamp(52px, 12vw, 100px);
-      line-height: 0.9;
-      letter-spacing: -5px;
-      margin: 0 0 25px;
-    }
+nav button {
+  border: 0;
+  background: transparent;
+  padding: 9px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+}
 
-    h1 em {
-      font-family: Georgia, serif;
-      font-weight: normal;
-    }
+nav button.active {
+  background: #171717;
+  color: white;
+}
 
-    .intro {
-      max-width: 480px;
-      font-size: 18px;
-      line-height: 1.6;
-      color: #5c5c5c;
-    }
+main {
+  max-width: 1100px;
+  margin: auto;
+  padding: 45px 22px 80px;
+}
 
-    .button {
-      display: inline-block;
-      margin-top: 25px;
-      padding: 16px 22px;
-      background: #171717;
-      color: white;
-      text-decoration: none;
-      font-weight: 700;
-    }
+.screen {
+  display: none;
+}
 
-    .feature {
-      margin-top: 70px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: #ddd8cf;
-    }
+.screen.active {
+  display: block;
+}
 
-    .feature article {
-      background: #fffdf9;
-      padding: 28px;
-      min-height: 180px;
-    }
+.eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
 
-    .feature-number {
-      font-size: 12px;
-      font-weight: bold;
-    }
+h1 {
+  font-size: clamp(52px, 12vw, 95px);
+  line-height: .9;
+  letter-spacing: -5px;
+  margin: 0 0 25px;
+}
 
-    .feature h2 {
-      margin-top: 45px;
-      font-size: 20px;
-    }
+h1 em,
+.page-title em {
+  font-family: Georgia, serif;
+  font-weight: normal;
+}
 
-    .feature p {
-      color: #666;
-      line-height: 1.5;
-    }
+.intro {
+  max-width: 500px;
+  color: #5c5c5c;
+  font-size: 18px;
+  line-height: 1.6;
+}
 
-    @media (max-width: 700px) {
-      .feature {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+.primary {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 15px 20px;
+  background: #171717;
+  color: white;
+  border: 0;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 20px;
+  margin-bottom: 35px;
+}
+
+.page-title {
+  font-size: clamp(42px, 8vw, 75px);
+  line-height: .95;
+  letter-spacing: -4px;
+  margin: 0;
+}
+
+.add-button {
+  background: #171717;
+  color: white;
+  border: 0;
+  padding: 15px 20px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.wardrobe {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.item {
+  background: #fffdf9;
+  cursor: pointer;
+}
+
+.item-photo {
+  height: 300px;
+  background: #e7e1d8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+  font-size: 40px;
+  font-weight: bold;
+  overflow: hidden;
+}
+
+.item-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.item-info {
+  padding: 15px;
+}
+
+.item-info h3 {
+  font-size: 15px;
+  margin: 0 0 5px;
+}
+
+.item-info p {
+  color: #777;
+  font-size: 12px;
+  margin: 0;
+}
+
+.empty {
+  text-align: center;
+  padding: 70px 20px;
+  color: #666;
+}
+
+.empty strong {
+  color: #171717;
+}
+
+.hidden {
+  display: none;
+}
+
+.back {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  margin-bottom: 30px;
+  cursor: pointer;
+}
+
+.selected {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+}
+
+.selected-photo {
+  height: 550px;
+  background: #e7e1d8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 70px;
+  font-weight: bold;
+  overflow: hidden;
+}
+
+.selected-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.look {
+  background: #fffdf9;
+  padding: 22px;
+  margin-bottom: 12px;
+}
+
+.look h3 {
+  margin-top: 0;
+}
+
+.look p {
+  color: #666;
+  line-height: 1.5;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #888;
+  font-size: 11px;
+  border-top: 1px solid #ddd8cf;
+}
+
+@media (max-width: 750px) {
+
+  header {
+    height: auto;
+    min-height: 70px;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 15px 20px;
+  }
+
+  nav {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  main {
+    padding: 35px 18px 60px;
+  }
+
+  .page-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .wardrobe {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .item-photo {
+    height: 220px;
+  }
+
+  .selected {
+    grid-template-columns: 1fr;
+  }
+
+  .selected-photo {
+    height: 400px;
+  }
+
+}
+
+</style>
 </head>
 
 <body>
 
 <header>
-  <div class="logo">
-    CLOSET <span>MATCH</span>
-  </div>
+
+<div class="logo">
+CLOSET <span>MATCH</span>
+</div>
+
+<nav>
+<button class="active" onclick="showScreen('discover', this)">Discover</button>
+<button onclick="showScreen('wardrobe', this)">My Wardrobe</button>
+<button onclick="showScreen('saved', this)">Saved</button>
+</nav>
+
 </header>
+
 
 <main>
 
-  <div class="eyebrow">
-    YOUR WARDROBE. YOUR STYLE.
-  </div>
 
-  <h1>
-    Get dressed<br>
-    <em>better.</em>
-  </h1>
+<!-- DISCOVER -->
 
-  <p class="intro">
-    Closet Match is your personal AI stylist.
-    Upload the clothes you own, choose what you want to wear,
-    and discover outfits built around your wardrobe.
-  </p>
+<section id="discover" class="screen active">
 
-  <a href="#" class="button">
-    Build my wardrobe →
-  </a>
+<p class="eyebrow">YOUR WARDROBE. YOUR STYLE.</p>
 
-  <section class="feature">
+<h1>
+Get dressed<br>
+<em>better.</em>
+</h1>
 
-    <article>
-      <div class="feature-number">01</div>
-      <h2>Your wardrobe</h2>
-      <p>
-        Digitise the clothes you already own
-        and see everything in one place.
-      </p>
-    </article>
+<p class="intro">
+Closet Match is your personal AI stylist.
+Upload the clothes you own, choose what you want to wear,
+and discover outfits built around your wardrobe.
+</p>
 
-    <article>
-      <div class="feature-number">02</div>
-      <h2>Style my item</h2>
-      <p>
-        Pick one piece and get outfit ideas
-        built around it.
-      </p>
-    </article>
+<button class="primary" onclick="showScreen('wardrobe')">
+Build my wardrobe →
+</button>
 
-    <article>
-      <div class="feature-number">03</div>
-      <h2>Shop the look</h2>
-      <p>
-        Discover pieces you could buy to
-        complete your outfits.
-      </p>
-    </article>
+</section>
 
-  </section>
+
+<!-- WARDROBE -->
+
+<section id="wardrobe" class="screen">
+
+<div class="page-header">
+
+<div>
+
+<p class="eyebrow">MY WARDROBE</p>
+
+<h2 class="page-title">
+Your closet,<br>
+<em>digitised.</em>
+</h2>
+
+</div>
+
+<label class="add-button">
+
++ Add item
+
+<input
+type="file"
+accept="image/*"
+multiple
+onchange="addItems(event)"
+hidden
+>
+
+</label>
+
+</div>
+
+
+<div id="wardrobeGrid" class="wardrobe"></div>
+
+
+<div id="empty" class="empty hidden">
+
+<h3>Your wardrobe is empty</h3>
+
+<p>
+Tap <strong>+ Add item</strong> to upload your first clothes.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- STYLE ITEM -->
+
+<section id="style" class="screen">
+
+<button class="back" onclick="showScreen('wardrobe')">
+← Back to wardrobe
+</button>
+
+<div class="selected">
+
+<div>
+
+<p class="eyebrow">STYLE THIS ITEM</p>
+
+<h2 id="selectedName">
+Your item
+</h2>
+
+<div id="selectedPhoto" class="selected-photo">
+CM
+</div>
+
+</div>
+
+
+<div>
+
+<p class="eyebrow">
+CLOSET MATCH SUGGESTIONS
+</p>
+
+<div class="look">
+
+<h3>Easy & effortless</h3>
+
+<p>
+Pair this with a simple fitted top,
+clean trainers and a structured bag.
+</p>
+
+</div>
+
+<div class="look">
+
+<h3>Dress it up</h3>
+
+<p>
+Add a blazer, jewellery and a pair of
+ankle boots for an evening look.
+</p>
+
+</div>
+
+<div class="look">
+
+<h3>Weekend</h3>
+
+<p>
+Keep it relaxed with a knit,
+casual trainers and a crossbody bag.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- SAVED -->
+
+<section id="saved" class="screen">
+
+<p class="eyebrow">SAVED</p>
+
+<h2 class="page-title">
+Your favourite<br>
+<em>looks.</em>
+</h2>
+
+<div class="empty">
+
+<h3>No saved looks yet</h3>
+
+<p>
+Your favourite outfits will appear here.
+</p>
+
+</div>
+
+</section>
+
 
 </main>
+
+
+<footer>
+Closet Match · MVP
+</footer>
+
+
+<script>
+
+let wardrobe = [];
+
+
+function showScreen(screen, button) {
+
+document.querySelectorAll('.screen')
+.forEach(section => section.classList.remove('active'));
+
+document.getElementById(screen)
+.classList.add('active');
+
+
+if (button) {
+
+document.querySelectorAll('nav button')
+.forEach(btn => btn.classList.remove('active'));
+
+button.classList.add('active');
+
+}
+
+}
+
+
+function addItems(event) {
+
+const files = event.target.files;
+
+for (const file of files) {
+
+const reader = new FileReader();
+
+reader.onload = function(e) {
+
+wardrobe.push({
+name: file.name
+.replace(/\.[^/.]+$/, "")
+.replace(/[-_]/g, " "),
+image: e.target.result
+});
+
+renderWardrobe();
+
+};
+
+reader.readAsDataURL(file);
+
+}
+
+}
+
+
+function renderWardrobe() {
+
+const grid =
+document.getElementById('wardrobeGrid');
+
+const empty =
+document.getElementById('empty');
+
+grid.innerHTML = '';
+
+
+if (wardrobe.length === 0) {
+
+empty.classList.remove('hidden');
+
+return;
+
+}
+
+empty.classList.add('hidden');
+
+
+wardrobe.forEach((item, index) => {
+
+const card =
+document.createElement('div');
+
+card.className = 'item';
+
+card.onclick = function() {
+styleItem(index);
+};
+
+
+card.innerHTML = `
+
+<div class="item-photo">
+
+<img src="${item.image}" alt="${item.name}">
+
+</div>
+
+<div class="item-info">
+
+<h3>${item.name}</h3>
+
+<p>My wardrobe</p>
+
+</div>
+
+`;
+
+grid.appendChild(card);
+
+});
+
+}
+
+
+function styleItem(index) {
+
+const item = wardrobe[index];
+
+document.getElementById('selectedName')
+.textContent = item.name;
+
+document.getElementById('selectedPhoto')
+.innerHTML =
+`<img src="${item.image}" alt="${item.name}">`;
+
+showScreen('style');
+
+}
+
+</script>
 
 </body>
 </html>
